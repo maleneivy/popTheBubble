@@ -1,0 +1,283 @@
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #eef;
+}
+
+h1, h2, h3 {
+  color: #192347;;
+}
+
+/* Startmeny */
+.start-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.start-menu select, .start-menu button {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Skjuler bobler og spill før start */
+.bubbles-room, .score-board {
+  display: none;
+}
+
+.bubbles-room {
+  height: 500px;
+  width: 350px;
+  background: linear-gradient(#2c3a6e, #192347);
+  border: 10px solid #192347;
+  border-radius: 9px;
+  margin: 40px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scoreboard */
+.score-board {
+  display: flex;
+  flex-direction: column;
+  font-size: 36px;
+  color: #192347;
+  margin-bottom: 10px;
+}
+
+.score-board span {
+  margin-top: 1rem;
+}
+
+/* Generell boblestil */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(192, 231, 255, 0.8);
+  cursor: crosshair;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Refleksjoner */
+.reflection {
+  background-color: rgba(255, 255, 255, 0.713);
+  height: 5px;
+  width: 7px; 
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  transform: rotate(-10deg);
+}
+
+.reflection-big {
+  background-color: rgba(255, 255, 255, 0.713);
+  height: 8px;
+  width: 11px; 
+  position: absolute;
+  top: 30%;
+  left: 60%;
+  transform: rotate(-10deg);
+}
+
+/* Klasse for rolig modus (Flytende bobler) */
+.calm-bubble {
+  animation: bubble-float 10s linear forwards;
+}
+
+/* Klasse for kaos-modus (Bobler beveger seg tilfeldig) */
+.chaos-bubble {
+  animation: bubble-chaos 6s ease-in-out forwards; /* Endret */
+}
+
+/* Flytende modus (rolig) */
+@keyframes bubble-float {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-600px); /* Sørger for at boblen går hele veien opp */
+    opacity: 1;
+  }
+}
+
+/* Kaos-modus: Bobler beveger seg tilfeldig */
+@keyframes bubble-chaos {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(60px, -120px) rotate(35deg); }
+  40% { transform: translate(-60px, -280px) rotate(-25deg); }
+  60% { transform: translate(40px, -460px) rotate(25deg); }
+  80% { transform: translate(-30px, -540px) rotate(-30deg); }
+  100% { transform: translate(0, -600px) rotate(0deg); } /* Fullfører animasjonen */
+}
+
+/* Pop-effekt når en boble blir klikket */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+    border: 1px dotted;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Klikkmerke - Bom (rød) og treff (grønn) */
+.click-effect {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  opacity: 0.7;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: click-fade 0.3s ease-out forwards;
+}
+
+.hit {
+  background-color: green;
+}
+
+.miss {
+  background-color: red;
+}
+
+/* Poengindikator som vises når bobler poppes */
+.score-indicator {
+  position: absolute;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  pointer-events: none;
+  animation: fade-score 0.5s ease-out forwards;
+}
+
+/* Fade-out animasjon for klikkmerket */
+@keyframes click-fade {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Animasjon for poeng som dukker opp og forsvinner */
+@keyframes fade-score {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+
+/* Når spillet er over, blir bakgrunnen blurry */
+.blurry-background {
+  animation: blur-effect 4s ease-in-out forwards;
+  pointer-events: none; /* Hindrer klikk på boblene */
+  position: relative;
+}
+
+/* Blur-animasjon */
+@keyframes blur-effect {
+  0% {
+    backdrop-filter: blur(0px);
+    opacity: 1;
+  }
+  100% {
+    backdrop-filter: blur(8px);
+    opacity: 0.5;
+  }
+}
+
+/* Sørger for at modalen fortsatt kan klikkes */
+.modal {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10; /* Sørger for at modalen alltid er klikkbar */
+  pointer-events: auto; /* Lar knapper være klikkbare */
+}
+
+/* Innholdet i modalen */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Når modalen er aktiv – skjermen blir mørkere og blurry */
+.bubbles-room.modal-active {
+  background: linear-gradient(#2c3a6e, #192347);
+  backdrop-filter: blur(8px);
+}
+
+ .modal-content h2 {
+  color: #192347;
+ }
+
+ .game-container {
+  display: none; /*Skjult som standard*/
+  flex-direction: column;
+ }
+ 
+ /* Rød nedtelling som vises øverst i bubbles-room */
+.countdown {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 7rem;
+  font-weight: bold;
+  color: transparent; /*Skjult til den aktiveres*/
+  user-select: none; /*Hindrer markering*/
+  pointer-events: none; /* Ikke-klikkbar */
+  transition: color 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+
+/* Blir synlig når det er 3 sekunder igjen */
+.countdown-active {
+  color: red;
+  font-size: 3rem;
+  animation: countdown-blink 1s infinite;
+  z-index: 2;
+}
+
+/* Blinker litt for å tiltrekke oppmerksomhet */
+@keyframes countdown-blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
