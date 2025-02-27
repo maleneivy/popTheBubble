@@ -65,33 +65,33 @@ function startGame(): void {
   // Start boblegenerering
   bubbleInterval = setInterval(() => createBubble(mode, speedMin, speedMax), spawnRate);
 
-// Opprett et nedtellings-element øverst i spillrommet
-const countdownTimer = document.createElement("div");
-countdownTimer.classList.add("countdown");
-bubblesRoom.appendChild(countdownTimer);
+  // Opprett et nedtellings-element øverst i spillrommet
+  const countdownTimer = document.createElement("div");
+  countdownTimer.classList.add("countdown");
+  bubblesRoom.appendChild(countdownTimer);
 
-// Start spill-timeren
-gameTimer = setInterval(() => {
-  if (timeLeft > 0) {
-    timeLeft--;
-    timerDisplay.textContent = timeLeft.toString();
+  // Start spill-timeren
+  gameTimer = setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      timerDisplay.textContent = timeLeft.toString();
 
-    // Når det er 3 sekunder igjen, vis tydelig nedtelling
-    if (timeLeft <= 3) {
-      countdownTimer.textContent = `${timeLeft}!`;
-      countdownTimer.classList.add("countdown-active");
+      // Når det er 3 sekunder igjen, vis tydelig nedtelling
+      if (timeLeft <= 3) {
+        countdownTimer.textContent = `${timeLeft}!`;
+        countdownTimer.classList.add("countdown-active");
+      }
+
+      // Fjern nedtellingen når spillet er over
+      if (timeLeft === 0) {
+        clearInterval(gameTimer);
+        clearInterval(bubbleInterval);
+        gameActive = false;
+        countdownTimer.remove(); // Fjern tekst
+        endGame();
+      }
     }
-
-    // Fjern nedtellingen når spillet er over
-    if (timeLeft === 0) {
-      clearInterval(gameTimer);
-      clearInterval(bubbleInterval);
-      gameActive = false;
-      countdownTimer.remove(); // Fjern tekst
-      endGame();
-    }
-  }
-}, 1000);
+  }, 1000);
 }
 
 // Funksjon for å avslutte spillet
@@ -231,8 +231,4 @@ backToGameOptionsButton.addEventListener("click", () => {
   gameContainer.style.display = "none";
   gameActive = false;
   startMenu.style.display = "block"; 
-})
-
-// Forslag til andre ting
-// Istedet for click, hva med å bruke hover?
-// Større viewport - Bastian syns det ble aaaaaltfor smått
+});
