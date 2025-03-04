@@ -11,6 +11,7 @@ const modeSelect = document.getElementById("mode") as HTMLSelectElement;
 const startButton = document.getElementById("start-game") as HTMLButtonElement;
 const startMenu = document.getElementById("start-menu") as HTMLDivElement;
 const backToGameOptionsButton = document.getElementById("back-to-game-options") as HTMLButtonElement;
+const heading1 = document.querySelector("h1") as HTMLHeadingElement;
 
 let score: number = 0;
 let timeLeft: number = 20;
@@ -33,28 +34,30 @@ const difficultySettings = {
   hard: { spawnRate: 200, speedMin: 4, speedMax: 6 } // Hardest should be fastest!
 };
 
-// Nedtellings-element øverst i spillrommet
-const countdownTimer = document.createElement("div");
-countdownTimer.classList.add("countdown");
-bubblesRoom.appendChild(countdownTimer);
+startButton.addEventListener("click", () => {
+  startGame();
+});
 
 // Funksjon for å starte spillet
 function startGame(): void {
   document.querySelectorAll(".bubble").forEach(bubble => bubble.remove());
   bubblesRoom.classList.remove("blurry-background");
   score = 0;
-  timeLeft = 10;
+  timeLeft = 20;
   gameActive = true;
   scoreDisplay.textContent = "0";
   timerDisplay.textContent = "20";
+  timerDisplay.style.color = "white";
+  timerDisplay.style.textShadow = "none";
   modal.style.display = "none";
   startMenu.style.display = "none"; // Skjuler startmeny
   gameContainer.style.display = "flex";
+  heading1.style.display = "none";
   
   bubblesRoom.style.display = "block"; // Viser spillområdet
   const scoreBoard = document.querySelector(".score-board") as HTMLElement;
   if (scoreBoard) {
-    scoreBoard.style.display = "block";
+    scoreBoard.style.display = "flex";
   }  
 
   // Henter valgt vanskelighetsgrad og modus
@@ -65,43 +68,44 @@ function startGame(): void {
   // Start boblegenerering
   bubbleInterval = setInterval(() => createBubble(mode, speedMin, speedMax), spawnRate);
 
-  // Opprett et nedtellings-element øverst i spillrommet
-  const countdownTimer = document.createElement("div");
-  countdownTimer.classList.add("countdown");
-  bubblesRoom.appendChild(countdownTimer);
-
   // Start spill-timeren
-  gameTimer = setInterval(() => {
-    if (timeLeft > 0) {
-      timeLeft--;
-      timerDisplay.textContent = timeLeft.toString();
+gameTimer = setInterval(() => {
+  if (timeLeft > 0) {
+    timeLeft--;
+    timerDisplay.textContent = timeLeft.toString();
 
-      // Når det er 3 sekunder igjen, vis tydelig nedtelling
-      if (timeLeft <= 3) {
-        countdownTimer.textContent = `${timeLeft}!`;
-        countdownTimer.classList.add("countdown-active");
-      }
+    // Når det er 3 sekunder igjen, vis tydelig nedtelling
+    if (timeLeft === 3) {
+      timerDisplay.classList.add("countdown-active");
+      timerDisplay.style.color = "red";
+      timerDisplay.style.textShadow = "0 0 10px rgba(255, 0, 0, 0.8)";
+    }
 
-      // Fjern nedtellingen når spillet er over
-      if (timeLeft === 0) {
-        clearInterval(gameTimer);
-        clearInterval(bubbleInterval);
-        gameActive = false;
-        countdownTimer.remove(); // Fjern tekst
-        endGame();
+    // Når tiden er ute, fjern klassen
+    if (timeLeft === 0) {
+      clearInterval(gameTimer);
+      clearInterval(bubbleInterval);
+      gameActive = false;
+      timerDisplay.classList.remove("countdown-active"); // Fjerner animasjonen
+      endGame();
+      timerDisplay.style.color = "red";
+      timerDisplay.style.textShadow = "0 0 10px rgba(255, 0, 0, 0.8)";
+      if (window.innerWidth <= 480) {
+        timerDisplay.style.fontSize = "24px";
+      } else if (window.innerWidth <= 768) {
+        timerDisplay.style.fontSize = "32px"; 
+      } else {
+        timerDisplay.style.fontSize = "40px";
       }
     }
-  }, 1000);
-}
+  }
+}, 1000);
 
 // Funksjon for å avslutte spillet
 function endGame(): void {
   clearInterval(gameTimer);
   clearInterval(bubbleInterval);
   gameActive = false;
-
-  // Fjern nedtellingsteksten
-  countdownTimer.remove();
 
   // Ikke fjern boblene – la de fortsette å flyte bak den blurry effekten
   bubblesRoom.classList.add("blurry-background");
@@ -167,8 +171,13 @@ function createBubble(mode: "calm" | "chaos", speedMin: number, speedMax: number
 // Funksjon for å poppe bobler og oppdatere poeng
 function popBubble(bubble: HTMLDivElement, points: number, event: MouseEvent): void {
   if (!gameActive || bubble.dataset.popped) return;
-  
+
   bubble.dataset.popped = "true"; // Hindrer dobbelt poeng
+
+  // Stopper all bevegelse og synlighet umiddelbart
+  bubble.style.animation = "none"; // Fjerner pågående animasjoner
+  bubble.style.transition = "none"; // Sikrer at det ikke er noen uønskede overganger
+  bubble.style.display = "none"; // Fjerner boblen etter pop!
 
   // Oppdater poeng
   score += points;
@@ -178,11 +187,13 @@ function popBubble(bubble: HTMLDivElement, points: number, event: MouseEvent): v
   showClickEffect(event.clientX, event.clientY, true, points);
 
   // Spiller pop-animasjonen
-  bubble.style.animation = "pop 0.3s ease-out forwards";
+  bubble.classList.add("popping");
 
-  // Fjerner boblen etter popping
+  // Fjern boblen etter popping
   setTimeout(() => {
-    bubble.remove();
+    if (bubble.parentElement) {
+      bubble.remove();
+    }
   }, 300);
 }
 
@@ -218,6 +229,14 @@ function showClickEffect(x: number, y: number, hit: boolean, points?: number): v
   }, 300);
 }
 
+// Vise "miss" effekt for bruker når det bommes på boblen
+bubblesRoom.addEventListener("click", (event) => {
+  const target = event.target as HTMLElement;
+  if (!target.classList.contains("bubble")) {
+      showClickEffect(event.clientX, event.clientY, false);
+  }
+});
+
 // Legg til event listeners for start og restart-knapp
 startButton.addEventListener("click", startGame);
 restartButton.addEventListener("click", () => {
@@ -231,4 +250,4 @@ backToGameOptionsButton.addEventListener("click", () => {
   gameContainer.style.display = "none";
   gameActive = false;
   startMenu.style.display = "block"; 
-});
+});}

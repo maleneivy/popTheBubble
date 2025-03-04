@@ -2,11 +2,24 @@ body {
   text-align: center;
   font-family: Arial, sans-serif;
   background-color: #eef;
-  overflow-x: auto;
+  margin: 0 auto;
+}
+
+main {
+  background-color: #2c3a6e;
+  margin: 0 auto;
+}
+
+body, main {
+  height: 100vh;
 }
 
 h1, h2, h3 {
-  color: #192347;;
+  color: #192347;
+}
+
+h1 {
+  margin: 0;
 }
 
 /* Startmeny */
@@ -41,12 +54,11 @@ h1, h2, h3 {
 }
 
 .bubbles-room {
-  height: 500px;
-  width: 350px;
+  height: 100vh;;
+  width: 100vw;
   background: linear-gradient(#2c3a6e, #192347);
-  border: 10px solid #192347;
+  border: 2px solid #192347;
   border-radius: 9px;
-  margin: 40px auto;
   position: relative;
   overflow: hidden;
 }
@@ -54,14 +66,18 @@ h1, h2, h3 {
 /* Scoreboard */
 .score-board {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
+  height: 100px;
   font-size: 36px;
-  color: #192347;
-  margin-bottom: 10px;
-}
-
-.score-board span {
-  margin-top: 1rem;
+  align-items: center;
+  background-color: #192347;
+  color: white;
+  margin: 10px auto;
+  position: relative;
+  margin: 0;
+  z-index: 10;
+  padding: 0 4rem;
 }
 
 /* Generell boblestil */
@@ -101,11 +117,6 @@ h1, h2, h3 {
   animation: bubble-float 10s linear forwards;
 }
 
-/* Klasse for kaos-modus (Bobler beveger seg tilfeldig) */
-.chaos-bubble {
-  animation: bubble-chaos 6s ease-in-out forwards; /* Endret */
-}
-
 /* Flytende modus (rolig) */
 @keyframes bubble-float {
   0% {
@@ -113,19 +124,31 @@ h1, h2, h3 {
     opacity: 1;
   }
   100% {
-    transform: translateY(-600px); /* Sørger for at boblen går hele veien opp */
+    transform: translateY(-100vh); /* Sørger for at boblen går hele veien opp */
     opacity: 1;
   }
+}
+
+/* Klasse for kaos-modus (Bobler beveger seg tilfeldig) */
+.chaos-bubble {
+  animation: bubble-chaos 6s ease-in-out forwards; /* Endret */
 }
 
 /* Kaos-modus: Bobler beveger seg tilfeldig */
 @keyframes bubble-chaos {
   0% { transform: translate(0, 0) rotate(0deg); }
-  20% { transform: translate(60px, -120px) rotate(35deg); }
-  40% { transform: translate(-60px, -280px) rotate(-25deg); }
-  60% { transform: translate(40px, -460px) rotate(25deg); }
-  80% { transform: translate(-30px, -540px) rotate(-30deg); }
-  100% { transform: translate(0, -600px) rotate(0deg); } /* Fullfører animasjonen */
+  15% { transform: translate(50px, -15vh) rotate(10deg); }
+  30% { transform: translate(-50px, -35vh) rotate(-15deg); }
+  45% { transform: translate(40px, -50vh) rotate(10deg); }
+  60% { transform: translate(-40px, -70vh) rotate(-15deg); }
+  75% { transform: translate(30px, -85vh) rotate(10deg); }
+  90% { transform: translate(-20px, -100vh) rotate(-10deg); }
+  100% { transform: translate(0, -120vh) rotate(0deg); }
+}
+
+/* Popping-effekt */
+.popping {
+  animation: pop 0.3s ease-out forwards;
 }
 
 /* Pop-effekt når en boble blir klikket */
@@ -134,10 +157,13 @@ h1, h2, h3 {
     transform: scale(1);
     opacity: 1;
   }
+  30% {
+    transform: scale(1.3);
+    opacity: 0.8;
+  }
   50% {
-    transform: scale(1.5);
+    transform: scale(1.1);
     opacity: 0.5;
-    border: 1px dotted;
   }
   100% {
     transform: scale(0);
@@ -200,6 +226,22 @@ h1, h2, h3 {
   }
 }
 
+/* Blir synlig når det er 3 sekunder igjen */
+#timer.countdown-active {
+  color: red;
+  font-size: 40px;
+  font-weight: bold;
+  animation: countdown-blink 0.5s infinite alternate;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+
+/* Blinkende effekt */
+@keyframes countdown-blink {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
 /* Når spillet er over, blir bakgrunnen blurry */
 .blurry-background {
   animation: blur-effect 4s ease-in-out forwards;
@@ -216,7 +258,7 @@ h1, h2, h3 {
   }
   100% {
     backdrop-filter: blur(8px);
-    opacity: 0.5;
+    opacity: 0.2;
   }
 }
 
@@ -256,32 +298,29 @@ h1, h2, h3 {
  .modal-content h2 {
   color: #192347;
  }
- 
- /* Rød nedtelling som vises øverst i bubbles-room */
-.countdown {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 7rem;
-  font-weight: bold;
-  color: transparent; /*Skjult til den aktiveres*/
-  user-select: none; /*Hindrer markering*/
-  pointer-events: none; /* Ikke-klikkbar */
-  transition: color 0.3s ease-in-out, font-size 0.3s ease-in-out;
+
+ /* Medium skjermer */
+@media screen and (max-width: 768px) {
+  .score-board {
+    height: 80px;
+    font-size: 28px;
+    padding: 0 2rem;    
+  }
+
+  #timer.countdown-active {
+    font-size: 32px;
+  }
 }
 
-/* Blir synlig når det er 3 sekunder igjen */
-.countdown-active {
-  color: red;
-  font-size: 3rem;
-  animation: countdown-blink 1s infinite;
-  z-index: 2;
-}
+/* Minste skjermer */
+@media screen and (max-width: 480px) {
+  .score-board {
+    height: 60px;
+    font-size: 20px;
+    padding: 0 1rem;
+  }
 
-/* Blinker litt for å tiltrekke oppmerksomhet */
-@keyframes countdown-blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+  #timer.countdown-active {
+    font-size: 24px;
+  }
 }
