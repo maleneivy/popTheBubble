@@ -250,4 +250,5 @@ backToGameOptionsButton.addEventListener("click", () => {
   gameContainer.style.display = "none";
   gameActive = false;
   startMenu.style.display = "block"; 
+  heading1.style.display = "block";
 });}

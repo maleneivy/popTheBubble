@@ -1,7 +1,13 @@
+html, body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none; 
+}
+
 body {
   text-align: center;
   font-family: Arial, sans-serif;
-  background-color: #eef;
+  background-color: #2c3a6e;
   margin: 0 auto;
 }
 
