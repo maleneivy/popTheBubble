@@ -9,6 +9,7 @@ const restartButton = document.getElementById("restart-button") as HTMLButtonEle
 const difficultySelect = document.getElementById("difficulty") as HTMLSelectElement;
 const modeSelect = document.getElementById("mode") as HTMLSelectElement;
 const startButton = document.getElementById("start-game") as HTMLButtonElement;
+const startMenuContainer = document.querySelector(".start-menu-container") as HTMLDivElement;
 const startMenu = document.getElementById("start-menu") as HTMLDivElement;
 const backToGameOptionsButton = document.getElementById("back-to-game-options") as HTMLButtonElement;
 const heading1 = document.querySelector("h1") as HTMLHeadingElement;
@@ -50,6 +51,7 @@ function startGame(): void {
   timerDisplay.style.color = "white";
   timerDisplay.style.textShadow = "none";
   modal.style.display = "none";
+  startMenuContainer.style.display = "none";
   startMenu.style.display = "none"; // Skjuler startmeny
   gameContainer.style.display = "flex";
   heading1.style.display = "none";
@@ -249,6 +251,7 @@ backToGameOptionsButton.addEventListener("click", () => {
   clearInterval(bubbleInterval);
   gameContainer.style.display = "none";
   gameActive = false;
-  startMenu.style.display = "block"; 
+  startMenuContainer.style.display = "block";
+  startMenu.style.display = "flex"; 
   heading1.style.display = "block";
 });}

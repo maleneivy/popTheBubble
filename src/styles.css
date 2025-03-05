@@ -28,23 +28,62 @@ h1 {
   margin: 0;
 }
 
+/* Buttons */
+button {
+  background: linear-gradient(#9a41dc, #842fc1);
+  padding: 10px 20px;
+  border: 0.5px solid #702c9d;
+  border-radius: 9px;;
+  font-size: 18px;
+  letter-spacing: 0.1rem;
+  color: #faf6fe;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  margin: 1rem 1rem;
+}
+
+button:hover {
+  background: linear-gradient(#842fc1, #702c9d);
+  border-color: #5b247f;
+}
+
+button:active {
+  background: linear-gradient(#702c9d, #5b247f);
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
 /* Startmeny */
+.start-menu-container {
+  margin: 1rem 1rem;
+}
+
 .start-menu {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  text-align: center;
+  max-width: 500px;
+  margin: 4rem auto;
 }
 
-.start-menu select, .start-menu button {
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 16px;
+.select-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.select-container label {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+}
+
+.select-options {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 9px;
+  margin: 0.5rem 0;
 }
 
 .game-container {
@@ -62,7 +101,7 @@ h1 {
 .bubbles-room {
   height: 100vh;;
   width: 100vw;
-  background: linear-gradient(#2c3a6e, #192347);
+  background: linear-gradient(#2c3a6e, #21294a);
   border: 2px solid #192347;
   border-radius: 9px;
   position: relative;
@@ -279,7 +318,6 @@ h1 {
   padding: 20px;
   border-radius: 10px;
   text-align: center;
-  width: 250px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   z-index: 10; /* Sørger for at modalen alltid er klikkbar */
   pointer-events: auto; /* Lar knapper være klikkbare */
@@ -291,8 +329,6 @@ h1 {
   padding: 20px;
   border-radius: 10px;
   text-align: center;
-  width: 250px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Når modalen er aktiv – skjermen blir mørkere og blurry */
@@ -315,6 +351,15 @@ h1 {
 
   #timer.countdown-active {
     font-size: 32px;
+  }
+
+  button {
+    font-size: 16px;
+  }
+
+  .modal {
+    width: 340px;
+    padding: 0;
   }
 }
 

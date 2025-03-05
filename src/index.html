@@ -9,23 +9,28 @@
 <body>
   <main>
     <h1>Pop that buBBle!</h1>
+
     <!-- Startmeny -->
+    <div class="start-menu-container">
     <div id="start-menu" class="start-menu">
-      <h2>Velg vanskelighetsgrad</h2>
-      <select id="difficulty">
-        <option value="easy">Lett</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
-    
-      <h2>Velg modus</h2>
-      <select id="mode">
-        <option value="calm">Flytende</option>
-        <option value="chaos">Kaos</option>
-      </select>
-    
-      <button id="start-game">Start Spill</button>
+        <h2>Velg vanskelighetsgrad</h2>
+        <div class="select-container">
+          <label for="speed">Hastighet</label>
+          <select id="difficulty" class="select-options" name="speed">
+            <option value="easy">Lett</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        <label for="mode">Modus</label>
+        <select id="mode" class="select-options" name="mode">
+          <option value="calm">Flytende</option>
+          <option value="chaos">Kaos</option>
+        </select>
+        </div>
+        <button id="start-game">Start Spill</button>
+      </div>
     </div>    
+
 <!-- Spillrom --> 
  <div class="game-container">
   <div>
