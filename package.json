@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "build": "tsc && cp src/index.html dist/ && cp src/styles.css dist/",
-    "watch": "concurrently \"tsc --watch\" \"nodemon --watch src/index.html --watch src/styles.css --exec \\\"cp src/index.html dist/ && cp src/styles.css dist/\\\"\" \"live-server dist --open=index.html\"",
+    "build": "tsc && cp src/index.html dist/ && cp src/styles.css dist/ && cp -r src/assets dist/",
+    "watch": "concurrently \"tsc --watch\" \"nodemon --watch src/index.html --watch src/styles.css --watch src/assets --exec \\\"cp src/index.html dist/ && cp src/styles.css dist/ && cp -r src/assets dist/\\\"\" \"live-server dist --open=index.html\"",
     "lint": "eslint \"src/**/*.{js,ts}\" --fix"
   },
   "keywords": [],

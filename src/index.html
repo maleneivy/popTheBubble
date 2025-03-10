@@ -12,8 +12,10 @@
 
     <!-- Startmeny -->
     <div class="start-menu-container">
-    <div id="start-menu" class="start-menu">
+      <div id="start-menu" class="start-menu">
         <h2>Velg vanskelighetsgrad</h2>
+
+        <!-- Select container | Hastighet-->
         <div class="select-container">
           <label for="speed">Hastighet</label>
           <select id="difficulty" class="select-options" name="speed">
@@ -21,12 +23,21 @@
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
           </select>
+          <div class="select-icon">
+            <img src="./assets/icons/arrow.svg" alt="Pil" class="arrow-icon"/>
+          </div>
+        </div>
+
+        <!-- Select | Modus -->
+        <div class="select-container">
         <label for="mode">Modus</label>
         <select id="mode" class="select-options" name="mode">
           <option value="calm">Flytende</option>
           <option value="chaos">Kaos</option>
-        </select>
+        </select>  <div class="select-icon">
+          <img src="./assets/icons/arrow.svg" alt="Pil" class="arrow-icon"/>
         </div>
+      </div>
         <button id="start-game">Start Spill</button>
       </div>
     </div>    
