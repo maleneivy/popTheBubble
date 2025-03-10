@@ -24,7 +24,7 @@ body, main {
 }
 
 h2, h3 {
-  color: #192347;
+  color: #21294a;
 }
 
 h1 {
@@ -94,7 +94,7 @@ button:active {
   appearance: none;
   color: #21294a;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  background-color: #faf6fe;
+  background-color: #f2f6fc;
 }
 
 .select-container label {
@@ -138,7 +138,7 @@ button:active {
   width: 100dvw;
   top: 0;
   left: 0;
-  background: linear-gradient(#2c3a6e, #21294a);
+  background: linear-gradient(#364897, #21294a);
   position: fixed;
 }
 
@@ -151,7 +151,7 @@ button:active {
   font-size: 36px;
   align-items: center;
   background-color: #192347;
-  color: white;
+  color: #f2f6fc;
   margin: 10px auto;
   position: relative;
   margin: 0;
@@ -168,7 +168,8 @@ button:active {
 .bubble {
   position: absolute;
   border-radius: 50%;
-  background-color: rgba(192, 231, 255, 0.8);
+  background-color: #7aa3e0b1;
+  box-shadow: 0 0 5px #4669ca;
   cursor: crosshair;
   display: flex;
   align-items: center;
@@ -177,8 +178,8 @@ button:active {
 
 /* Rød boble med minuspoeng */
 .red-bubble {
-  background-color: rgba(255, 0, 0, 0.8);
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+  background-color: #d0a3f57f;
+  box-shadow: 0 0 15px #9941dcd4;
 }
 
 /* Rød boble poppeffekt */
@@ -224,6 +225,22 @@ button:active {
   top: 30%;
   left: 60%;
   transform: rotate(-10deg);
+}
+
+.skull-small, .skull-big {
+  position: absolute;
+  width: 60%; /* Skalert til boblen */
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none; 
+  color: black;
+}
+
+.skull-big {
+  width: 60%;
 }
 
 /* Klasse for rolig modus (Flytende bobler) */
@@ -298,11 +315,11 @@ button:active {
 }
 
 .hit {
-  background-color: green;
+  background-color: rgba(0, 188, 0, 0.8);
 }
 
 .miss {
-  background-color: red;
+  background-color: rgba(255, 0, 0, 0.8);
 }
 
 /* Poengindikator som vises når bobler poppes */

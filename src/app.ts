@@ -42,6 +42,8 @@ startButton.addEventListener("click", () => {
 
 // Funksjon for å starte spillet
 function startGame(): void {
+  clearInterval(gameTimer);
+  clearInterval(bubbleInterval);
   document.querySelectorAll(".bubble").forEach(bubble => bubble.remove());
   bubblesRoom.classList.remove("blurry-background");
   score = 0;
@@ -148,6 +150,15 @@ function createBubble(mode: "calm" | "chaos", speedMin: number, speedMax: number
   const selectedSize = bubbleSizes[Math.floor(Math.random() * bubbleSizes.length)];
   bubble.style.width = `${selectedSize.size}px`;
   bubble.style.height = `${selectedSize.size}px`;
+
+  // Legge til skull i minusboble 
+  if (isRedBubble) {
+  const skull = document.createElement("img");
+  skull.src = "./assets/icons/skull.svg";
+  skull.classList.add(selectedSize.size > 40 ? "skull-big" : "skull-small");
+
+  bubble.appendChild(skull);
+  }
 
   // Sett poeng basert på farge
   const points = isRedBubble ? -selectedSize.points : selectedSize.points;
