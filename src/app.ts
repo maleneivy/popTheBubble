@@ -263,6 +263,8 @@ bubblesRoom.addEventListener("click", (event) => {
 startButton.addEventListener("click", startGame);
 restartButton.addEventListener("click", () => {
   modal.style.display = "none";
+  clearInterval(gameTimer);
+  clearInterval(bubbleInterval);
   startGame();
 });
 
