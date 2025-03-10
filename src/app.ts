@@ -124,12 +124,23 @@ function createBubble(mode: "calm" | "chaos", speedMin: number, speedMax: number
   if (!gameActive) return;
 
   const bubble = document.createElement("div");
-  bubble.classList.add("bubble");
+
+  // 10% sjanse for at det blir en rød boble
+  const isRedBubble = Math.random() < 0.1; 
+
+  if (isRedBubble) {
+    bubble.classList.add("bubble", "red-bubble"); // Legger til red-bubble klassen
+  } else {
+    bubble.classList.add("bubble"); // Vanlig boble
+  }
 
   // Velger en tilfeldig størrelse
   const selectedSize = bubbleSizes[Math.floor(Math.random() * bubbleSizes.length)];
   bubble.style.width = `${selectedSize.size}px`;
   bubble.style.height = `${selectedSize.size}px`;
+
+  // Sett poeng basert på farge
+  const points = isRedBubble ? -selectedSize.points : selectedSize.points;
 
   // Tilfeldig startposisjon
   const randomLeft: number = Math.random() * (bubblesRoom.clientWidth - selectedSize.size);
@@ -150,23 +161,23 @@ function createBubble(mode: "calm" | "chaos", speedMin: number, speedMax: number
     bubble.classList.add("chaos-bubble");
   }
 
-  // **Setter varighet på bobleanimasjonen basert på vanskelighetsgrad**
+  // Setter varighet på bobleanimasjonen basert på vanskelighetsgrad
   const duration: number = Math.random() * (speedMax - speedMin) + speedMin;
-  bubble.style.animationDuration = `${duration}s`; // 📌 Legger til hastighet
+  bubble.style.animationDuration = `${duration}s`;
 
   // Legger til boblen i spillområdet
   bubblesRoom.appendChild(bubble);
 
-  // Event Listener for popping
-  bubble.addEventListener("click", (event) => popBubble(bubble, selectedSize.points, event));
+  //Event Listener for popping
+  bubble.addEventListener("click", (event) => popBubble(bubble, points, event));
 
-  // 📌 **Kun calm-modus fjerner boblen manuelt**
+  // Kun calm-modus fjerner boblen manuelt
   if (mode === "calm") {
     setTimeout(() => {
       if (bubble.parentElement) {
         bubble.remove();
       }
-    }, duration * 1000); // 📌 Fjerner boblen kun i calm modus
+    }, duration * 1000);
   }
 }
 
@@ -213,17 +224,26 @@ function showClickEffect(x: number, y: number, hit: boolean, points?: number): v
   if (hit && points) {
     const scoreIndicator = document.createElement("div");
     scoreIndicator.classList.add("score-indicator");
-    scoreIndicator.textContent = `+${points}`;
+  
+    // Sjekk om poengene er negative eller positive
+    if (points > 0) {
+      scoreIndicator.textContent = `+${points}`;
+      scoreIndicator.style.color = "green";
+    } else {
+      scoreIndicator.textContent = `${points}`; // Negativt tall vises med minus
+      scoreIndicator.style.color = "red";
+    }
+  
     scoreIndicator.style.left = `${x}px`;
     scoreIndicator.style.top = `${y - 20}px`;
-
+  
     document.body.appendChild(scoreIndicator);
-
+  
     // Fjern poengindikator etter 500ms
     setTimeout(() => {
       scoreIndicator.remove();
     }, 500);
-  }
+  }  
 
   // Fjern klikkmerket etter 300ms
   setTimeout(() => {
