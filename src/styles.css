@@ -1,6 +1,8 @@
-/* html, body {
-
-} */
+html, body {
+  width: 100%;
+  min-height: 100dvh; 
+  overflow: hidden;
+}
 
 body {
   text-align: center;
@@ -55,7 +57,11 @@ button:active {
 
 /* --------------------------------------- Startmeny */
 .start-menu-container {
-  margin: 1rem 1rem;
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+  overflow: auto;
+  max-height: 90dvh;
 }
 
 .start-menu {
@@ -135,13 +141,12 @@ button:active {
 }
 
 .bubbles-room {
-  height: 100vh;;
-  width: 100vw;
+  height: 100dvh;
+  width: 100dvw;
+  top: 0;
+  left: 0;
   background: linear-gradient(#2c3a6e, #21294a);
-  border: 2px solid #192347;
-  border-radius: 9px;
-  position: relative;
-  /* overflow: hidden; */
+  position: fixed;
 }
 
 /* Scoreboard */
@@ -373,16 +378,32 @@ button:active {
   backdrop-filter: blur(8px);
 }
 
+#game-over-modal {
+  width: 100%;
+  max-width: 350px;
+}
+
  .modal-content h2 {
   color: #192347;
  }
 
  /* Medium skjermer */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) and (orientation: landscape){
+  .game-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
   .score-board {
-    height: 80px;
-    font-size: 28px;
+    height: 50px;
+    font-size: 20px;
     padding: 0 2rem;    
+  }
+
+  .bubbles-room {
+    height: 100dvh;
+    width: 100dvw;
   }
 
   #timer.countdown-active {
@@ -390,7 +411,11 @@ button:active {
   }
 
   button, .select-options {
-    font-size: 16px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px 15px;
   }
 
   .modal {
