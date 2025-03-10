@@ -13,6 +13,7 @@ const startMenuContainer = document.querySelector(".start-menu-container") as HT
 const startMenu = document.getElementById("start-menu") as HTMLDivElement;
 const backToGameOptionsButton = document.getElementById("back-to-game-options") as HTMLButtonElement;
 const heading1 = document.querySelector("h1") as HTMLHeadingElement;
+const countdownWarning = document.getElementById("countdown-warning") as HTMLDivElement;
 
 let score: number = 0;
 let timeLeft: number = 20;
@@ -70,11 +71,19 @@ function startGame(): void {
   // Start boblegenerering
   bubbleInterval = setInterval(() => createBubble(mode, speedMin, speedMax), spawnRate);
 
-  // Start spill-timeren
+  // Spill-timeren
 gameTimer = setInterval(() => {
   if (timeLeft > 0) {
     timeLeft--;
     timerDisplay.textContent = timeLeft.toString();
+
+  // Når det er 5 sekunder igjen, vis countdown midt i skjermen
+  if (timeLeft <= 5 && timeLeft > 0) {
+    countdownWarning.style.display = "block";
+    countdownWarning.textContent = timeLeft.toString();
+      } else {
+          countdownWarning.style.display = "none";
+        }
 
     // Når det er 3 sekunder igjen, vis tydelig nedtelling
     if (timeLeft === 3) {
@@ -92,6 +101,7 @@ gameTimer = setInterval(() => {
       endGame();
       timerDisplay.style.color = "red";
       timerDisplay.style.textShadow = "0 0 10px rgba(255, 0, 0, 0.8)";
+      countdownWarning.style.display = "none";
       if (window.innerWidth <= 480) {
         timerDisplay.style.fontSize = "24px";
       } else if (window.innerWidth <= 768) {

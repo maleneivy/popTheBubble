@@ -159,6 +159,11 @@ button:active {
   padding: 0 4rem;
 }
 
+.score-board h4 {
+  user-select: none;
+  pointer-events: none;
+}
+
 /* Generell boblestil */
 .bubble {
   position: absolute;
@@ -335,19 +340,26 @@ button:active {
   }
 }
 
-/* Blir synlig når det er 3 sekunder igjen */
-#timer.countdown-active {
-  color: red;
-  font-size: 40px;
+.countdown-warning {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
   font-weight: bold;
-  animation: countdown-blink 0.5s infinite alternate;
+  color: red;
   text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  display: none; /* Skjult som standard */
+  z-index: 100; /* Sørger for at den ligger på toppen */
+  animation: countdown-blink 1s infinite;
+  user-select: none;  /* Hindrer markering */
+  pointer-events: none; /* Hindrer interaksjon */
 }
 
-/* Blinkende effekt */
+/* Blinkende effekt for å fange oppmerksomhet */
 @keyframes countdown-blink {
   0% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.2); }
+  50% { opacity: 0.5; transform: scale(1.3); }
   100% { opacity: 1; transform: scale(1); }
 }
 
