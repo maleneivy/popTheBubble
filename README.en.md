@@ -1,10 +1,14 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/maleneivy/popthebubble?style=social)
 ![GitHub last commit](https://img.shields.io/github/last-commit/maleneivy/popthebubble)
 ![GitHub license](https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/35b9c474-4df1-45fc-9485-8bf8f9c14ec1/deploy-status)](https://app.netlify.com/sites/popth3bubble/deploys)
 
 📖 This document is available in [Norwegian](README.md).
 
 # 🫧 Pop The Bubble 🫧  
+
+### 🌍 Live Demo
+[🎮 Play Pop The Bubble here!](https://popth3bubble.netlify.app/)
 
 **Pop The Bubble** is a fun and interactive browser game where the goal is to pop as many bubbles as possible before time runs out! But be careful – some bubbles give negative points!  
 
