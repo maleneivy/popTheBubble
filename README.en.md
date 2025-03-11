@@ -1,6 +1,6 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/maleneivy/popthebubble?style=social)
 ![GitHub last commit](https://img.shields.io/github/last-commit/maleneivy/popthebubble)
-![GitHub license](https://img.shields.io/github/license/maleneivy/popthebubble)
+![GitHub license](https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey)
 
 📖 This document is available in [Norwegian](README.md).
 
