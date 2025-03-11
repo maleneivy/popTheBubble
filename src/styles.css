@@ -401,9 +401,9 @@ button:active {
 }
 
 /* Sørger for at modalen fortsatt kan klikkes */
+/* Modal (skjult som standard) */
 .modal {
-  display: none;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -412,8 +412,18 @@ button:active {
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 10; /* Sørger for at modalen alltid er klikkbar */
-  pointer-events: auto; /* Lar knapper være klikkbare */
+  z-index: 10;
+  pointer-events: none; /* Hindrer interaksjon */
+  opacity: 0; /* Skjult som standard */
+  transition: opacity 0.3s ease-in-out;
+  width: 100%;
+  max-width: 340px;
+}
+
+/* Når modalen er aktiv */
+.show-modal {
+  opacity: 1; /* Gjør den synlig */
+  pointer-events: auto; /* Tillater interaksjon */
 }
 
 /* Innholdet i modalen */
@@ -428,11 +438,6 @@ button:active {
 .bubbles-room.modal-active {
   background: linear-gradient(#2c3a6e, #192347);
   backdrop-filter: blur(8px);
-}
-
-#game-over-modal {
-  width: 100%;
-  max-width: 350px;
 }
 
  .modal-content h2 {
@@ -468,11 +473,6 @@ button:active {
 
   button {
     padding: 8px 15px;
-  }
-
-  .modal {
-    width: 340px;
-    padding: 0;
   }
 }
 

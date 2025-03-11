@@ -3,7 +3,7 @@ const bubblesRoom = document.querySelector(".bubbles-room") as HTMLDivElement;
 const gameContainer = document.querySelector(".game-container") as HTMLDivElement;
 const scoreDisplay = document.getElementById("score") as HTMLSpanElement;
 const timerDisplay = document.getElementById("timer") as HTMLSpanElement;
-const modal = document.getElementById("game-over-modal") as HTMLDivElement;
+const modal = document.querySelector(".modal") as HTMLDivElement;
 const finalScore = document.getElementById("final-score") as HTMLSpanElement;
 const restartButton = document.getElementById("restart-button") as HTMLButtonElement;
 const difficultySelect = document.getElementById("difficulty") as HTMLSelectElement;
@@ -53,7 +53,6 @@ function startGame(): void {
   timerDisplay.textContent = "20";
   timerDisplay.style.color = "white";
   timerDisplay.style.textShadow = "none";
-  modal.style.display = "none";
   startMenuContainer.style.display = "none";
   startMenu.style.display = "none"; // Skjuler startmeny
   gameContainer.style.display = "flex";
@@ -127,7 +126,7 @@ function endGame(): void {
   // Vent 2 sekunder før modalen vises
   setTimeout(() => {
     finalScore.textContent = score.toString();
-    modal.style.display = "flex";
+    modal.classList.add("show-modal");
   }, 2000);
 }
 
@@ -283,7 +282,7 @@ bubblesRoom.addEventListener("click", (event) => {
 // Legg til event listeners for start og restart-knapp
 startButton.addEventListener("click", startGame);
 restartButton.addEventListener("click", () => {
-  modal.style.display = "none";
+  modal.classList.remove("show-modal"); 
   clearInterval(gameTimer);
   clearInterval(bubbleInterval);
   startGame();
@@ -294,6 +293,7 @@ backToGameOptionsButton.addEventListener("click", () => {
   clearInterval(bubbleInterval);
   gameContainer.style.display = "none";
   gameActive = false;
+  modal.classList.remove("show-modal"); 
   startMenuContainer.style.display = "block";
   startMenu.style.display = "flex"; 
   heading1.style.display = "block";
