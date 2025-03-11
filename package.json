@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "build": "tsc && cp src/index.html dist/ && cp src/styles.css dist/ && cp -r src/assets dist/",
+    "build": "tsc && cp src/index.html dist/ && cp src/styles.css dist/ && cp -r src/assets dist/ && cp src/assets/icons/favicon.ico dist/",
     "watch": "concurrently \"tsc --watch\" \"nodemon --watch src/index.html --watch src/styles.css --watch src/assets --exec \\\"cp src/index.html dist/ && cp src/styles.css dist/ && cp -r src/assets dist/\\\"\" \"live-server dist --open=index.html\"",
     "lint": "eslint \"src/**/*.{js,ts}\" --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": ["game", "typescript", "bubbles", "fun"],
+  "author": "Malene Ivy Olsen",
+  "license": "CC-BY-NC-4.0",
+  "description": "Pop The Bubble er et morsomt nettleserspill laget med TypeScript, der du popper bobler for poeng, men pass deg for de røde boblene!",
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
